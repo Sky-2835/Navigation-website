@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>导航网址</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header>
+    </header>
+    <main>
+        <div id="all" ></div>
+    </main>
+    <footer></footer>
+    <script>
+        var x = {
+           '0':['q','w','e','r','t','y','u','i','o','p',],//数组绝对会有length属性
+           '1':['a','s','d','f','g','h','j','k','l',], 
+           '2':['z','x','c','v','b','n','m',],
+           'length':'3'
+         }
+        var hash = {
+            'q': 'www.qq.com',
+            'w': 'weibo.com',
+            'e': 'ele.me',
+            'r': 'renren.com',
+            'y': 'youku.com',
+            'o': 'opera.com',
+            'i': 'iqiyi.com',
+            'd': 'douban.com',
+            'a': 'acfun.cn',
+            's': 'soho.com',
+            'z': 'zhihu.com',
+            'm': 'meituan.com',
+        }
+          var hashInlocalstorage = JSON.parse(localStorage.getItem('zzz')||'null')
+          if(hashInlocalstorage){
+              hash = hashInlocalstorage
+          }
+        index = 0
+        while(index < x['length']){
+           div1 = document.createElement('div')
+           all.appendChild(div1)
+           row = x[index]['length'] 
+           index2 = 0
+           while(index2 < row ) {
+           kbd1 = document.createElement('kbd')
+           kbd1.className = 'key'
+           div1.appendChild(kbd1) 
+
+           span1 = document.createElement('span')
+           kbd1.appendChild(span1)
+           span1.textContent=x[index][index2]
+
+           img1 = document.createElement('img')
+           kbd1.appendChild(img1)
+           if (hash[x[index][index2]]){
+            img1.src ='http://' + hash[x[index][index2]] + '/favicon.ico' 
+           }else{
+            img1.src ='./4.png' 
+           }
+            img1.onerror = function(tu){
+            tu.target.src ='./4.png' 
+           }
+           
+        
+
+           
+
+           button1 = document.createElement('button')
+           kbd1.appendChild(button1)
+           button1.textContent = '编辑'
+           button1.id =  x[index][index2]
+           button1.onclick = function(dianji){
+           button2 = dianji.target
+           img2 = button2.previousSibling
+           key = button2['id']
+           y = prompt('给我一个网址')
+           hash[key] = y
+           img2.src = 'http://' + y + '/favicon.ico'
+           img2.onerror = function(xxx){
+               xxx.target.src = './4.png'
+           }
+           localStorage.setItem('zzz',JSON.stringify(hash))
+
+           }
+           index2 = index2 + 1
+        }
+        index = index + 1       
+        }
+        document.onkeypress = function(jianpan){
+            key = jianpan['key'] // q w e ....
+            website = hash[key]
+            window.open('http://' + website,'_blank')
+            //location.href = 'http://' + website
+        }
+        
+    </script>
+</body>
+</html>
